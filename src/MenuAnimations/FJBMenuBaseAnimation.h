@@ -1,5 +1,5 @@
 //
-//  FJBAppDelegate.h
+//  FJBMenuBaseAnimation.h
 //  The MIT License (MIT)
 //
 //  Copyright (c) 2014 Francisco J. Belchi (https://github.com/fjbelchi/FJBMenuViewController)
@@ -21,10 +21,21 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+#import "FJBMenuAnimationProtocol.h"
 
-@interface FJBAppDelegate : UIResponder <UIApplicationDelegate>
+#define DEG2RAD(degrees) (degrees * M_PI / 180)
 
-@property (strong, nonatomic) UIWindow *window;
+@interface FJBMenuBaseAnimation : NSObject <FJBMenuAnimationProtocol>
+@property (nonatomic, assign) CGFloat visibleWidthCenterView;
+@property (nonatomic, assign) CGFloat animationDuration;
+@property (nonatomic, assign) CGFloat reverseAnimationDuration;
+@property (nonatomic, assign) BOOL shouldHideStatusBar;
+
+- (instancetype) initWithVisibleWidthCenter:(CGFloat) visibleWidthCenterView
+                          animationDuration:(CGFloat) animationDuration
+                   reverseAnimationDuration:(CGFloat) reverseAnimationDuration
+                        shouldHideStatusBar:(BOOL) shouldHideStatusBar;
 
 @end

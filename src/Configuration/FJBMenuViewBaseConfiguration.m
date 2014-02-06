@@ -1,5 +1,5 @@
 //
-//  FJBAppDelegate.h
+//  FJBMenuViewBaseConfiguration.m
 //  The MIT License (MIT)
 //
 //  Copyright (c) 2014 Francisco J. Belchi (https://github.com/fjbelchi/FJBMenuViewController)
@@ -21,10 +21,35 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "FJBMenuViewBaseConfiguration.h"
+#import "FJBMenuAirbnbAnimation.h"
+#import "FJBMenuFacebookAnimation.h"
+#import "FJBMenuLuvocracyAnimation.h"
 
-@interface FJBAppDelegate : UIResponder <UIApplicationDelegate>
+@implementation FJBMenuViewBaseConfiguration
 
-@property (strong, nonatomic) UIWindow *window;
+- (id<FJBMenuAnimationProtocol>)menuViewControllerDefaultAnimation:(FJBMenuViewController*)menuViewController
+{
+    if (self.animation) {
+        return self.animation;
+    }
+    self.animation = [[FJBMenuFacebookAnimation alloc] init];
+    //self.animation = [[FJBMenuAirbnbAnimation alloc] init];
+    //self.animation = [[FJBMenuLuvocracyAnimation alloc] init];
+    return self.animation;
+}
+
+- (UIGestureRecognizer *) gestureRecognizerForCenterViewController: (UIViewController *) centerViewController
+{
+    UIGestureRecognizer *recognizer = [[UIGestureRecognizer alloc] init];
+    //[centerViewController.view addGestureRecognizer:recognizer];
+    
+    return recognizer;
+}
+
+- (BOOL) menuViewControllerShouldHideStatusBar:(FJBMenuViewController *)menuViewController
+{
+    return self.animation.shouldHideStatusBar;
+}
 
 @end

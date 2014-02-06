@@ -1,5 +1,5 @@
 //
-//  FJBAppDelegate.h
+//  UIViewController+FJBMenuViewController.m
 //  The MIT License (MIT)
 //
 //  Copyright (c) 2014 Francisco J. Belchi (https://github.com/fjbelchi/FJBMenuViewController)
@@ -21,10 +21,21 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "UIViewController+FJBMenuViewController.h"
 
-@interface FJBAppDelegate : UIResponder <UIApplicationDelegate>
+@implementation UIViewController (FJBMenuViewController)
 
-@property (strong, nonatomic) UIWindow *window;
+- (FJBMenuViewController *)menuController
+{
+    if([self.parentViewController isKindOfClass:[FJBMenuViewController class]]) {
+        return (FJBMenuViewController *)self.parentViewController;
+        
+    } else if([self.parentViewController isKindOfClass:[UINavigationController class]] &&
+            [self.parentViewController.parentViewController isKindOfClass:[FJBMenuViewController class]]) {
+        return (FJBMenuViewController *)self.parentViewController.parentViewController;
+    }
+    
+    return nil;
+}
 
 @end

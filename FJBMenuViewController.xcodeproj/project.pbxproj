@@ -19,6 +19,13 @@
 		FF5EF99218A3AEA500D8E444 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF5EF97A18A3AEA400D8E444 /* UIKit.framework */; };
 		FF5EF99A18A3AEA500D8E444 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FF5EF99818A3AEA500D8E444 /* InfoPlist.strings */; };
 		FF5EF99C18A3AEA500D8E444 /* FJBMenuViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF99B18A3AEA500D8E444 /* FJBMenuViewControllerTests.m */; };
+		FF5EF9BA18A3B00500D8E444 /* FJBMenuViewBaseConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9A918A3B00500D8E444 /* FJBMenuViewBaseConfiguration.m */; };
+		FF5EF9BB18A3B00500D8E444 /* FJBMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9AD18A3B00500D8E444 /* FJBMenuViewController.m */; };
+		FF5EF9BC18A3B00500D8E444 /* FJBMenuAirbnbAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B118A3B00500D8E444 /* FJBMenuAirbnbAnimation.m */; };
+		FF5EF9BD18A3B00500D8E444 /* FJBMenuBaseAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B318A3B00500D8E444 /* FJBMenuBaseAnimation.m */; };
+		FF5EF9BE18A3B00500D8E444 /* FJBMenuFacebookAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B518A3B00500D8E444 /* FJBMenuFacebookAnimation.m */; };
+		FF5EF9BF18A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B718A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m */; };
+		FF5EF9C018A3B00500D8E444 /* UIViewController+FJBMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B918A3B00500D8E444 /* UIViewController+FJBMenuViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +55,23 @@
 		FF5EF99718A3AEA500D8E444 /* FJBMenuViewControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FJBMenuViewControllerTests-Info.plist"; sourceTree = "<group>"; };
 		FF5EF99918A3AEA500D8E444 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FF5EF99B18A3AEA500D8E444 /* FJBMenuViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FJBMenuViewControllerTests.m; sourceTree = "<group>"; };
+		FF5EF9A818A3B00400D8E444 /* FJBMenuViewBaseConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuViewBaseConfiguration.h; sourceTree = "<group>"; };
+		FF5EF9A918A3B00500D8E444 /* FJBMenuViewBaseConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuViewBaseConfiguration.m; sourceTree = "<group>"; };
+		FF5EF9AA18A3B00500D8E444 /* FJBMenuViewConfigurationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuViewConfigurationProtocol.h; sourceTree = "<group>"; };
+		FF5EF9AB18A3B00500D8E444 /* FJBMenuAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuAnimationProtocol.h; sourceTree = "<group>"; };
+		FF5EF9AC18A3B00500D8E444 /* FJBMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuViewController.h; sourceTree = "<group>"; };
+		FF5EF9AD18A3B00500D8E444 /* FJBMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuViewController.m; sourceTree = "<group>"; };
+		FF5EF9AE18A3B00500D8E444 /* FJBMenuViewControllerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuViewControllerDelegate.h; sourceTree = "<group>"; };
+		FF5EF9B018A3B00500D8E444 /* FJBMenuAirbnbAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuAirbnbAnimation.h; sourceTree = "<group>"; };
+		FF5EF9B118A3B00500D8E444 /* FJBMenuAirbnbAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuAirbnbAnimation.m; sourceTree = "<group>"; };
+		FF5EF9B218A3B00500D8E444 /* FJBMenuBaseAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuBaseAnimation.h; sourceTree = "<group>"; };
+		FF5EF9B318A3B00500D8E444 /* FJBMenuBaseAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuBaseAnimation.m; sourceTree = "<group>"; };
+		FF5EF9B418A3B00500D8E444 /* FJBMenuFacebookAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuFacebookAnimation.h; sourceTree = "<group>"; };
+		FF5EF9B518A3B00500D8E444 /* FJBMenuFacebookAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuFacebookAnimation.m; sourceTree = "<group>"; };
+		FF5EF9B618A3B00500D8E444 /* FJBMenuLuvocracyAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBMenuLuvocracyAnimation.h; sourceTree = "<group>"; };
+		FF5EF9B718A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuLuvocracyAnimation.m; sourceTree = "<group>"; };
+		FF5EF9B818A3B00500D8E444 /* UIViewController+FJBMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+FJBMenuViewController.h"; sourceTree = "<group>"; };
+		FF5EF9B918A3B00500D8E444 /* UIViewController+FJBMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+FJBMenuViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +101,7 @@
 		FF5EF96A18A3AEA400D8E444 = {
 			isa = PBXGroup;
 			children = (
+				FF5EF9A618A3B00400D8E444 /* src */,
 				FF5EF97C18A3AEA400D8E444 /* FJBMenuViewController */,
 				FF5EF99518A3AEA500D8E444 /* FJBMenuViewControllerTests */,
 				FF5EF97518A3AEA400D8E444 /* Frameworks */,
@@ -142,6 +167,46 @@
 				FF5EF99818A3AEA500D8E444 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FF5EF9A618A3B00400D8E444 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FF5EF9A718A3B00400D8E444 /* Configuration */,
+				FF5EF9AF18A3B00500D8E444 /* MenuAnimations */,
+				FF5EF9AB18A3B00500D8E444 /* FJBMenuAnimationProtocol.h */,
+				FF5EF9AC18A3B00500D8E444 /* FJBMenuViewController.h */,
+				FF5EF9AD18A3B00500D8E444 /* FJBMenuViewController.m */,
+				FF5EF9AE18A3B00500D8E444 /* FJBMenuViewControllerDelegate.h */,
+				FF5EF9B818A3B00500D8E444 /* UIViewController+FJBMenuViewController.h */,
+				FF5EF9B918A3B00500D8E444 /* UIViewController+FJBMenuViewController.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		FF5EF9A718A3B00400D8E444 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				FF5EF9A818A3B00400D8E444 /* FJBMenuViewBaseConfiguration.h */,
+				FF5EF9A918A3B00500D8E444 /* FJBMenuViewBaseConfiguration.m */,
+				FF5EF9AA18A3B00500D8E444 /* FJBMenuViewConfigurationProtocol.h */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		FF5EF9AF18A3B00500D8E444 /* MenuAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				FF5EF9B018A3B00500D8E444 /* FJBMenuAirbnbAnimation.h */,
+				FF5EF9B118A3B00500D8E444 /* FJBMenuAirbnbAnimation.m */,
+				FF5EF9B218A3B00500D8E444 /* FJBMenuBaseAnimation.h */,
+				FF5EF9B318A3B00500D8E444 /* FJBMenuBaseAnimation.m */,
+				FF5EF9B418A3B00500D8E444 /* FJBMenuFacebookAnimation.h */,
+				FF5EF9B518A3B00500D8E444 /* FJBMenuFacebookAnimation.m */,
+				FF5EF9B618A3B00500D8E444 /* FJBMenuLuvocracyAnimation.h */,
+				FF5EF9B718A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m */,
+			);
+			path = MenuAnimations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,8 +305,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF5EF9BB18A3B00500D8E444 /* FJBMenuViewController.m in Sources */,
 				FF5EF98318A3AEA400D8E444 /* main.m in Sources */,
 				FF5EF98718A3AEA400D8E444 /* FJBAppDelegate.m in Sources */,
+				FF5EF9BA18A3B00500D8E444 /* FJBMenuViewBaseConfiguration.m in Sources */,
+				FF5EF9BE18A3B00500D8E444 /* FJBMenuFacebookAnimation.m in Sources */,
+				FF5EF9BF18A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m in Sources */,
+				FF5EF9C018A3B00500D8E444 /* UIViewController+FJBMenuViewController.m in Sources */,
+				FF5EF9BC18A3B00500D8E444 /* FJBMenuAirbnbAnimation.m in Sources */,
+				FF5EF9BD18A3B00500D8E444 /* FJBMenuBaseAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  FJBAppDelegate.h
+//  UIViewController+FJBMenuViewController.h
 //  The MIT License (MIT)
 //
 //  Copyright (c) 2014 Francisco J. Belchi (https://github.com/fjbelchi/FJBMenuViewController)
@@ -22,9 +22,8 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import "FJBMenuViewController.h"
 
-@interface FJBAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface UIViewController (FJBMenuViewController)
+- (FJBMenuViewController *)menuController;
 @end

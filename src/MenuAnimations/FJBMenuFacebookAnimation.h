@@ -1,5 +1,5 @@
 //
-//  FJBAppDelegate.h
+//  FJBMenuFacebookAnimation.h
 //  The MIT License (MIT)
 //
 //  Copyright (c) 2014 Francisco J. Belchi (https://github.com/fjbelchi/FJBMenuViewController)
@@ -21,10 +21,10 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "FJBMenuAnimationProtocol.h"
+#import "FJBMenuBaseAnimation.h"
 
-@interface FJBAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
+@interface FJBMenuFacebookAnimation : FJBMenuBaseAnimation <FJBMenuAnimationProtocol>
 
 @end

@@ -1,5 +1,5 @@
 //
-//  FJBAppDelegate.h
+//  FJBMenuViewControllerDelegate.h
 //  The MIT License (MIT)
 //
 //  Copyright (c) 2014 Francisco J. Belchi (https://github.com/fjbelchi/FJBMenuViewController)
@@ -21,10 +21,13 @@
 //  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-@interface FJBAppDelegate : UIResponder <UIApplicationDelegate>
+@class FJBMenuViewController;
 
-@property (strong, nonatomic) UIWindow *window;
-
+@protocol FJBMenuViewControllerDelegate <NSObject>
+- (void) menuViewController:(FJBMenuViewController *)menuViewController willShowViewController:(UIViewController *)viewController;
+- (void) menuViewController:(FJBMenuViewController *)menuViewController didShowViewController:(UIViewController *)viewController;
+- (void) menuViewController:(FJBMenuViewController *)menuViewController willHideViewController:(UIViewController *)viewController;
+- (void) menuViewController:(FJBMenuViewController *)menuViewController didHideViewController:(UIViewController *)viewController;
 @end
