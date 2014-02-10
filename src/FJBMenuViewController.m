@@ -26,10 +26,15 @@
 #import "FJBMenuViewBaseConfiguration.h"
 
 @interface FJBMenuViewController () <UIGestureRecognizerDelegate>
+// -- ViewControllers
 @property (nonatomic, readwrite) BOOL leftMenuOpened;
 @property (nonatomic, readwrite) BOOL rigthMenuOpened;
 @property (nonatomic, strong) UIViewController *selectedViewController;
+
+// -- Side states
 @property (nonatomic, assign) MenuSide sideOpened;
+@property (nonatomic, assign) MenuSide sideOpening;
+@property (nonatomic, strong) NSMutableSet *sidesAvailable;
 
 // -- Configuration
 @property (nonatomic, strong) id<FJBMenuAnimationProtocol> menuAnimation;
@@ -42,6 +47,11 @@
 - (instancetype)init
 {
     return [self initWithCenterViewController:nil leftViewController:nil rightViewController:nil];
+}
+
+- (instancetype)initWithCenterViewController:(UIViewController *)centerViewController
+{
+    return [self initWithCenterViewController:centerViewController leftViewController:nil rightViewController:nil];
 }
 
 - (instancetype)initWithCenterViewController:(UIViewController *)centerViewController
@@ -70,6 +80,16 @@
         _leftViewController = leftViewController;
         _rightViewController = rightViewController;
         _shouldHideStatusBar = NO;
+        
+        _sidesAvailable = [NSMutableSet set];
+        
+        if (_leftViewController) {
+            [_sidesAvailable addObject:@(MenuLeftSide)];
+        }
+        if (_rightViewController) {
+            [_sidesAvailable addObject:@(MenuRightSide)];
+        }
+        
     }
     return self;
 }
@@ -143,6 +163,12 @@
     
     _rightViewController = rightViewController;
     
+    if (_rightViewController) {
+        [self.sidesAvailable addObject:@(MenuRightSide)];
+    } else {
+        [self.sidesAvailable removeObject:@(MenuRightSide)];
+    }
+    
     if (self.rigthMenuOpened) {
         [self addChildViewController:_rightViewController];
         [self.view addSubview:_rightViewController.view];
@@ -160,6 +186,12 @@
     
     _leftViewController = leftViewController;
     
+    if (_leftViewController) {
+        [self.sidesAvailable addObject:@(MenuLeftSide)];
+    } else {
+        [self.sidesAvailable removeObject:@(MenuLeftSide)];
+    }
+    
     if (self.isLeftMenuOpened) {
         [self addChildViewController:_leftViewController];
         [self.view addSubview:_leftViewController.view];
@@ -169,17 +201,44 @@
 
 - (void)setCenterViewController:(UIViewController *)centerViewController
 {
-    if (_centerViewController) {
+   if (_centerViewController) {
+        [self.menuAnimation swapCenterView:_centerViewController.view withView:centerViewController.view];
         [_centerViewController willMoveToParentViewController:nil];
         [_centerViewController.view removeFromSuperview];
         [_centerViewController removeFromParentViewController];
     }
     
     _centerViewController = centerViewController;
-    #warning TODO -- Add animations
+    
     [self addChildViewController:_centerViewController];
     [self.view addSubview:_centerViewController.view];
     [self didMoveToParentViewController:_centerViewController];
+    [self p_setupGestureRecognizers];
+/*
+ // -- Testing with Animations
+    [UIView animateKeyframesWithDuration:3 delay:0
+                                 options:UIViewAnimationCurveEaseInOut
+                              animations:^{
+                                  CGRect frame =  _centerViewController.view.frame;
+                                  frame.origin.x += 50;
+                                  _centerViewController.view.frame = frame;
+                              } completion:^(BOOL finished) {
+                                  
+                                  if (_centerViewController) {
+                                      [self.menuAnimation swapCenterView:_centerViewController.view withView:centerViewController.view];
+                                      [_centerViewController willMoveToParentViewController:nil];
+                                      [_centerViewController.view removeFromSuperview];
+                                      [_centerViewController removeFromParentViewController];
+                                  }
+                                  _centerViewController = centerViewController;
+                                  
+                                  [self addChildViewController:_centerViewController];
+                                  [self.view addSubview:_centerViewController.view];
+                                  [self didMoveToParentViewController:_centerViewController];
+                                  [self p_setupGestureRecognizers];
+                              }];
+    */
+
 }
 
 
@@ -217,6 +276,15 @@
 {
     if (state == UIGestureRecognizerStateBegan) {
         [self p_menuWillOpenFromSide:side withAnimation:animation];
+        self.sideOpening = side;
+        
+    } else if (state == UIGestureRecognizerStateChanged) {
+        if (self.sideOpening != side) {
+            [self p_menuWillCloseFromSide:self.sideOpening];
+            [self p_menuClosedFromSide:self.sideOpening];
+            [self p_menuWillOpenFromSide:side withAnimation:animation];
+            self.sideOpening = side;
+        }
     }
     
     __weak __typeof(self) weakSelf = self;
@@ -243,6 +311,7 @@
                                    }
 
                                }
+                               
                            }
      ];
 
@@ -353,6 +422,7 @@
     self.menuAnimation = animation;
     [self addChildViewController:self.selectedViewController];
     [self.view addSubview:self.selectedViewController.view];
+    [self.view bringSubviewToFront:self.centerViewController.view];
     [self.selectedViewController beginAppearanceTransition:YES animated:YES];
     
     if([self.delegate respondsToSelector:@selector(menuViewController:willShowViewController:)]){
@@ -395,6 +465,7 @@
             self.sideOpened = MenuRightSide;
             break;
         default:
+            self.sideOpened = MenuSideNone;
             break;
     }
     
@@ -405,8 +476,6 @@
 
 - (void)p_menuClosedFromSide:(MenuSide)side
 {
-    [self.selectedViewController.view removeFromSuperview];
-    [self.selectedViewController removeFromParentViewController];
     switch (side) {
         case MenuLeftSide:
             self.leftMenuOpened = NO;
@@ -419,6 +488,9 @@
     }
     self.sideOpened = MenuSideNone;
     [self p_showStatusBar];
+    
+    [self.selectedViewController.view removeFromSuperview];
+    [self.selectedViewController removeFromParentViewController];
     
     if([self.delegate respondsToSelector:@selector(menuViewController:didHideViewController:)]){
         [self.delegate menuViewController:self didHideViewController:self.selectedViewController];
@@ -510,15 +582,14 @@
                 break;
         }
     }
-    
-    if (open) {
-        self.sideOpened = side;
+  
+    if (open && ([self.sidesAvailable containsObject:@(side)] || recognizer.state == UIGestureRecognizerStateEnded)) {
         [self p_showMenuViewControllerFromSide:side
                                transitionStyle:self.menuAnimation
                               recognitionState:recognizer.state
                               translationPoint:point];
         
-    } else {
+    } else if([self.sidesAvailable containsObject:@(side)] || recognizer.state == UIGestureRecognizerStateEnded){
         [self p_hideMenuViewControllerFromSide:side
                                transitionStyle:self.menuAnimation
                               recognitionState:recognizer.state

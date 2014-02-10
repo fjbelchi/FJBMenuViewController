@@ -26,6 +26,9 @@
 		FF5EF9BE18A3B00500D8E444 /* FJBMenuFacebookAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B518A3B00500D8E444 /* FJBMenuFacebookAnimation.m */; };
 		FF5EF9BF18A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B718A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m */; };
 		FF5EF9C018A3B00500D8E444 /* UIViewController+FJBMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9B918A3B00500D8E444 /* UIViewController+FJBMenuViewController.m */; };
+		FF5EF9CA18A8D42800D8E444 /* FJBCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9C918A8D42800D8E444 /* FJBCenterViewController.m */; };
+		FF5EF9CE18A8D4C900D8E444 /* FJBLeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9CD18A8D4C900D8E444 /* FJBLeftViewController.m */; };
+		FF5EF9D118A918D100D8E444 /* FJBRightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5EF9D018A918D100D8E444 /* FJBRightViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +75,12 @@
 		FF5EF9B718A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FJBMenuLuvocracyAnimation.m; sourceTree = "<group>"; };
 		FF5EF9B818A3B00500D8E444 /* UIViewController+FJBMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+FJBMenuViewController.h"; sourceTree = "<group>"; };
 		FF5EF9B918A3B00500D8E444 /* UIViewController+FJBMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+FJBMenuViewController.m"; sourceTree = "<group>"; };
+		FF5EF9C818A8D42800D8E444 /* FJBCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FJBCenterViewController.h; path = ViewControllers/FJBCenterViewController.h; sourceTree = "<group>"; };
+		FF5EF9C918A8D42800D8E444 /* FJBCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FJBCenterViewController.m; path = ViewControllers/FJBCenterViewController.m; sourceTree = "<group>"; };
+		FF5EF9CC18A8D4C900D8E444 /* FJBLeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FJBLeftViewController.h; path = ViewControllers/FJBLeftViewController.h; sourceTree = "<group>"; };
+		FF5EF9CD18A8D4C900D8E444 /* FJBLeftViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FJBLeftViewController.m; path = ViewControllers/FJBLeftViewController.m; sourceTree = "<group>"; };
+		FF5EF9CF18A918D100D8E444 /* FJBRightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FJBRightViewController.h; path = ViewControllers/FJBRightViewController.h; sourceTree = "<group>"; };
+		FF5EF9D018A918D100D8E444 /* FJBRightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FJBRightViewController.m; path = ViewControllers/FJBRightViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +141,7 @@
 		FF5EF97C18A3AEA400D8E444 /* FJBMenuViewController */ = {
 			isa = PBXGroup;
 			children = (
+				FF5EF9CB18A8D42C00D8E444 /* ViewControllers */,
 				FF5EF98518A3AEA400D8E444 /* FJBAppDelegate.h */,
 				FF5EF98618A3AEA400D8E444 /* FJBAppDelegate.m */,
 				FF5EF98818A3AEA400D8E444 /* Images.xcassets */,
@@ -207,6 +217,19 @@
 				FF5EF9B718A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m */,
 			);
 			path = MenuAnimations;
+			sourceTree = "<group>";
+		};
+		FF5EF9CB18A8D42C00D8E444 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				FF5EF9C818A8D42800D8E444 /* FJBCenterViewController.h */,
+				FF5EF9C918A8D42800D8E444 /* FJBCenterViewController.m */,
+				FF5EF9CC18A8D4C900D8E444 /* FJBLeftViewController.h */,
+				FF5EF9CD18A8D4C900D8E444 /* FJBLeftViewController.m */,
+				FF5EF9CF18A918D100D8E444 /* FJBRightViewController.h */,
+				FF5EF9D018A918D100D8E444 /* FJBRightViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -307,12 +330,15 @@
 			files = (
 				FF5EF9BB18A3B00500D8E444 /* FJBMenuViewController.m in Sources */,
 				FF5EF98318A3AEA400D8E444 /* main.m in Sources */,
+				FF5EF9D118A918D100D8E444 /* FJBRightViewController.m in Sources */,
 				FF5EF98718A3AEA400D8E444 /* FJBAppDelegate.m in Sources */,
 				FF5EF9BA18A3B00500D8E444 /* FJBMenuViewBaseConfiguration.m in Sources */,
 				FF5EF9BE18A3B00500D8E444 /* FJBMenuFacebookAnimation.m in Sources */,
 				FF5EF9BF18A3B00500D8E444 /* FJBMenuLuvocracyAnimation.m in Sources */,
 				FF5EF9C018A3B00500D8E444 /* UIViewController+FJBMenuViewController.m in Sources */,
 				FF5EF9BC18A3B00500D8E444 /* FJBMenuAirbnbAnimation.m in Sources */,
+				FF5EF9CA18A8D42800D8E444 /* FJBCenterViewController.m in Sources */,
+				FF5EF9CE18A8D4C900D8E444 /* FJBLeftViewController.m in Sources */,
 				FF5EF9BD18A3B00500D8E444 /* FJBMenuBaseAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -64,6 +64,8 @@ withGestureRecognizerState:(UIGestureRecognizerState)state
                   extraAnimation:(void (^)())animationBlock
                       completion:(void (^)(BOOL opened))completion;
 
+- (void)swapCenterView:(UIView *)centerView withView:(UIView *)view;
+
 
 @optional
 - (void)resetMenuPosition:(UIView *)menuView;

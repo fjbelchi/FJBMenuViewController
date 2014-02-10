@@ -22,13 +22,23 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "FJBAppDelegate.h"
+#import "FJBMenuViewController.h"
+#import "FJBCenterViewController.h"
+#import "FJBLeftViewController.h"
+#import "FJBRightViewController.h"
 
 @implementation FJBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    FJBLeftViewController *leftViewController = [[FJBLeftViewController alloc] init];
+    FJBRightViewController *rigthViewController = [[FJBRightViewController alloc] init];
+    FJBCenterViewController *centerViewController = [[FJBCenterViewController alloc] init];
+    
+    FJBMenuViewController *menuViewController = [[FJBMenuViewController alloc] initWithCenterViewController:centerViewController leftViewController:leftViewController rightViewController:rigthViewController];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    self.window.rootViewController = menuViewController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

@@ -76,20 +76,12 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
                          centerView.layer.transform = contentTransform;
+                         menuView.layer.transform = menuTransform;
                          animationBlock();
                      }
                      completion:^(BOOL finished) {
                          completion(finished);
-                     }];
-    
-    [UIView animateWithDuration:self.animationDuration
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
-                         menuView.layer.transform = menuTransform;
-                     }
-                     completion:nil];
-    
+                     }];    
 }
 
 - (void)animateCenterView:(UIView *)centerView
@@ -194,6 +186,11 @@ withGestureRecognizerState:(UIGestureRecognizerState)state
                          menuView.layer.transform = menuTransform;
                          completion(finished);
                      }];
+}
+
+- (void)swapCenterView:(UIView *)centerView withView:(UIView *)view;
+{
+    view.layer.transform = centerView.layer.transform;    
 }
 
 @end

@@ -169,7 +169,7 @@
     if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStateChanged) {
         switch (menuSide) {
             case MenuLeftSide:
-                centerFrame.origin.x = self.visibleWidthCenterView + point.x;
+                centerFrame.origin.x = MAX(self.visibleWidthCenterView + point.x,0);
                 break;
             case MenuRightSide:
                 centerFrame.origin.x = -(centerFrame.size.width-(centerFrame.size.width-self.visibleWidthCenterView))+point.x;
@@ -191,6 +191,11 @@
                      completion:^(BOOL finished) {
                          completion(finished);
                      }];
+}
+
+- (void)swapCenterView:(UIView *)centerView withView:(UIView *)view;
+{
+    view.frame = centerView.frame;
 }
 
 @end

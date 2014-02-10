@@ -128,4 +128,10 @@
                      }];
 }
 
+
+- (void)swapCenterView:(UIView *)centerView withView:(UIView *)view;
+{
+    view.layer.transform = centerView.layer.transform;
+}
+
 @end

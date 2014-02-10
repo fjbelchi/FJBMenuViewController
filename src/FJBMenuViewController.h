@@ -38,6 +38,8 @@
 
 @property (nonatomic, weak) id<FJBMenuViewControllerDelegate> delegate;
 
+- (instancetype)initWithCenterViewController:(UIViewController *)centerViewController;
+
 - (instancetype)initWithCenterViewController:(UIViewController *)centerViewController
                           leftViewController:(UIViewController *)leftViewController;
 
