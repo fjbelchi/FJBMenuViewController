@@ -22,12 +22,17 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
+#import "FJBMenuAnimationProtocol.h"
 
 @class FJBMenuViewController;
 
 @protocol FJBMenuViewControllerDelegate <NSObject>
-- (void) menuViewController:(FJBMenuViewController *)menuViewController willShowViewController:(UIViewController *)viewController;
-- (void) menuViewController:(FJBMenuViewController *)menuViewController didShowViewController:(UIViewController *)viewController;
-- (void) menuViewController:(FJBMenuViewController *)menuViewController willHideViewController:(UIViewController *)viewController;
-- (void) menuViewController:(FJBMenuViewController *)menuViewController didHideViewController:(UIViewController *)viewController;
+
+- (void) menuViewController:(FJBMenuViewController *)menuViewController willShowViewController:(UIViewController *)viewController fromMenuSide:(MenuSide)side;
+
+- (void) menuViewController:(FJBMenuViewController *)menuViewController didShowViewController:(UIViewController *)viewController fromMenuSide:(MenuSide)side;
+
+- (void) menuViewController:(FJBMenuViewController *)menuViewController willHideViewController:(UIViewController *)viewController fromMenuSide:(MenuSide)side;
+
+- (void) menuViewController:(FJBMenuViewController *)menuViewController didHideViewController:(UIViewController *)viewController fromMenuSide:(MenuSide)side;
 @end

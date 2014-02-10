@@ -425,8 +425,8 @@
     [self.view bringSubviewToFront:self.centerViewController.view];
     [self.selectedViewController beginAppearanceTransition:YES animated:YES];
     
-    if([self.delegate respondsToSelector:@selector(menuViewController:willShowViewController:)]){
-        [self.delegate menuViewController:self willShowViewController:self.selectedViewController];
+    if([self.delegate respondsToSelector:@selector(menuViewController:willShowViewController:fromMenuSide:)]){
+        [self.delegate menuViewController:self willShowViewController:self.selectedViewController fromMenuSide:side];
     }
     
     [self p_hideStatusBar];
@@ -434,8 +434,8 @@
 
 - (void)p_menuWillCloseFromSide:(MenuSide)side
 {
-    if([self.delegate respondsToSelector:@selector(menuViewController:willHideViewController:)]){
-        [self.delegate menuViewController:self willHideViewController:self.selectedViewController];
+    if([self.delegate respondsToSelector:@selector(menuViewController:willHideViewController:fromMenuSide:)]){
+        [self.delegate menuViewController:self willHideViewController:self.selectedViewController fromMenuSide:side];
     }
     
     switch (side) {
@@ -469,8 +469,8 @@
             break;
     }
     
-    if([self.delegate respondsToSelector:@selector(menuViewController:didShowViewController:)]){
-        [self.delegate menuViewController:self willShowViewController:self.selectedViewController];
+    if([self.delegate respondsToSelector:@selector(menuViewController:didShowViewController:fromMenuSide:)]){
+        [self.delegate menuViewController:self willShowViewController:self.selectedViewController fromMenuSide:side];
     }
 }
 
@@ -492,8 +492,8 @@
     [self.selectedViewController.view removeFromSuperview];
     [self.selectedViewController removeFromParentViewController];
     
-    if([self.delegate respondsToSelector:@selector(menuViewController:didHideViewController:)]){
-        [self.delegate menuViewController:self didHideViewController:self.selectedViewController];
+    if([self.delegate respondsToSelector:@selector(menuViewController:didHideViewController:fromMenuSide:)]){
+        [self.delegate menuViewController:self didHideViewController:self.selectedViewController fromMenuSide:side];
     }
 }
 
