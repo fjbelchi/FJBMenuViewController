@@ -27,7 +27,7 @@
 @class FJBMenuViewController;
 
 @protocol FJBMenuViewControllerDelegate <NSObject>
-
+@optional
 - (void) menuViewController:(FJBMenuViewController *)menuViewController willShowViewController:(UIViewController *)viewController fromMenuSide:(MenuSide)side;
 
 - (void) menuViewController:(FJBMenuViewController *)menuViewController didShowViewController:(UIViewController *)viewController fromMenuSide:(MenuSide)side;

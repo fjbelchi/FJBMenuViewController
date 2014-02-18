@@ -428,8 +428,6 @@
     if([self.delegate respondsToSelector:@selector(menuViewController:willShowViewController:fromMenuSide:)]){
         [self.delegate menuViewController:self willShowViewController:self.selectedViewController fromMenuSide:side];
     }
-    
-    [self p_hideStatusBar];
 }
 
 - (void)p_menuWillCloseFromSide:(MenuSide)side
@@ -454,6 +452,8 @@
 
 - (void)p_menuOpenedFromSide:(MenuSide)side
 {
+    [self p_hideStatusBar];
+
     [self didMoveToParentViewController:self.selectedViewController];
     switch (side) {
         case MenuLeftSide:
