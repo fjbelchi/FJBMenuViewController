@@ -470,7 +470,7 @@
     }
     
     if([self.delegate respondsToSelector:@selector(menuViewController:didShowViewController:fromMenuSide:)]){
-        [self.delegate menuViewController:self willShowViewController:self.selectedViewController fromMenuSide:side];
+        [self.delegate menuViewController:self didShowViewController:self.selectedViewController fromMenuSide:side];
     }
 }
 
