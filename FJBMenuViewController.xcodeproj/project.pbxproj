@@ -42,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FF46924818BE1D0900C76FDA /* FJBViewControllerAnimationProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FJBViewControllerAnimationProtocol.h; sourceTree = "<group>"; };
 		FF5EF97318A3AEA400D8E444 /* FJBMenuViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FJBMenuViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5EF97618A3AEA400D8E444 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		FF5EF97818A3AEA400D8E444 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -185,6 +186,7 @@
 				FF5EF9A718A3B00400D8E444 /* Configuration */,
 				FF5EF9AF18A3B00500D8E444 /* MenuAnimations */,
 				FF5EF9AB18A3B00500D8E444 /* FJBMenuAnimationProtocol.h */,
+				FF46924818BE1D0900C76FDA /* FJBViewControllerAnimationProtocol.h */,
 				FF5EF9AC18A3B00500D8E444 /* FJBMenuViewController.h */,
 				FF5EF9AD18A3B00500D8E444 /* FJBMenuViewController.m */,
 				FF5EF9AE18A3B00500D8E444 /* FJBMenuViewControllerDelegate.h */,
@@ -542,6 +544,7 @@
 				FF5EF9A118A3AEA500D8E444 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FF5EF9A218A3AEA500D8E444 /* Build configuration list for PBXNativeTarget "FJBMenuViewControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -550,6 +553,7 @@
 				FF5EF9A418A3AEA500D8E444 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

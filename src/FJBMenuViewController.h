@@ -57,4 +57,13 @@
 - (void)showRightMenuViewController;
 - (void)showRightMenuViewControllerWithMenuAnimation:(id<FJBMenuAnimationProtocol>)animation;
 - (void)hideRightMenuViewController;
+
+- (void)setCenterViewController:(UIViewController *)centerViewController
+                   withDuration:(CGFloat)duration
+                     animations:(void(^)())animationBlock
+                     completion:(void(^)())completionBlock;
+
+- (void)setCenterViewController:(UIViewController *)centerViewController animated:(BOOL)animated;
+
+
 @end
