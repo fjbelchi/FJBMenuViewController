@@ -22,8 +22,9 @@
 //  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "FJBMenuViewController.h"
-#import "FJBMenuFacebookAnimation.h"
 #import "FJBMenuViewBaseConfiguration.h"
+#import "FJBViewControllerAnimationProtocol.h"
+
 
 @interface FJBMenuViewController () <UIGestureRecognizerDelegate>
 // -- ViewControllers
@@ -202,7 +203,6 @@
 - (void)setCenterViewController:(UIViewController *)centerViewController
 {
    if (_centerViewController) {
-        [self.menuAnimation swapCenterView:_centerViewController.view withView:centerViewController.view];
         [_centerViewController willMoveToParentViewController:nil];
         [_centerViewController.view removeFromSuperview];
         [_centerViewController removeFromParentViewController];
@@ -214,31 +214,97 @@
     [self.view addSubview:_centerViewController.view];
     [self didMoveToParentViewController:_centerViewController];
     [self p_setupGestureRecognizers];
-/*
- // -- Testing with Animations
-    [UIView animateKeyframesWithDuration:3 delay:0
-                                 options:UIViewAnimationCurveEaseInOut
-                              animations:^{
-                                  CGRect frame =  _centerViewController.view.frame;
-                                  frame.origin.x += 50;
-                                  _centerViewController.view.frame = frame;
-                              } completion:^(BOOL finished) {
-                                  
-                                  if (_centerViewController) {
-                                      [self.menuAnimation swapCenterView:_centerViewController.view withView:centerViewController.view];
-                                      [_centerViewController willMoveToParentViewController:nil];
-                                      [_centerViewController.view removeFromSuperview];
-                                      [_centerViewController removeFromParentViewController];
-                                  }
-                                  _centerViewController = centerViewController;
-                                  
-                                  [self addChildViewController:_centerViewController];
-                                  [self.view addSubview:_centerViewController.view];
-                                  [self didMoveToParentViewController:_centerViewController];
-                                  [self p_setupGestureRecognizers];
-                              }];
-    */
+}
 
+
+- (void)setCenterViewController:(UIViewController *)centerViewController
+                   withDuration:(CGFloat)duration
+                     animations:(void(^)())animationBlock
+                     completion:(void(^)())completionBlock
+{
+    [_centerViewController willMoveToParentViewController:nil];
+
+    [self addChildViewController:centerViewController];
+    [self.view addSubview:centerViewController.view];
+
+    [UIView animateWithDuration:duration
+                     animations:^{
+                         if (animationBlock) {
+                             animationBlock();
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         
+                         if (completionBlock) {
+                             completionBlock();
+                         }
+                         
+                         [_centerViewController.view removeFromSuperview];
+                         [_centerViewController removeFromParentViewController];
+                         
+                         _centerViewController = centerViewController;
+                         [_centerViewController didMoveToParentViewController:self];
+                         [self p_setupGestureRecognizers];
+                         
+                     }];
+
+}
+
+- (void)setCenterViewController:(UIViewController *)centerViewController animated:(BOOL)animated
+{
+    if (!animated) {
+        self.centerViewController = centerViewController;
+    }
+    
+    if ([_centerViewController respondsToSelector:@selector(menuViewController:willChangeCenterViewController:forViewController:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)_centerViewController menuViewController:self willChangeCenterViewController:_centerViewController forViewController:centerViewController];
+    }
+    
+    if ([centerViewController respondsToSelector:@selector(menuViewController:willChangeCenterViewController:forViewController:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)centerViewController menuViewController:self willChangeCenterViewController:_centerViewController forViewController:centerViewController];
+    }
+    
+    [_centerViewController willMoveToParentViewController:nil];
+    
+    [self addChildViewController:centerViewController];
+    [self.view addSubview:centerViewController.view];
+    
+    void (^fromViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
+
+    };
+    
+    void (^toViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
+        
+        [_centerViewController.view removeFromSuperview];
+        [_centerViewController removeFromParentViewController];
+        
+        if ([_centerViewController respondsToSelector:@selector(menuViewController:didChangeCenterViewController:forViewController:)]) {
+            [(id<FJBViewControllerAnimationProtocol>)_centerViewController menuViewController:self didChangeCenterViewController:_centerViewController forViewController:centerViewController];
+        }
+        
+        _centerViewController = centerViewController;
+        [_centerViewController didMoveToParentViewController:self];
+        [self p_setupGestureRecognizers];
+        
+        if ([centerViewController respondsToSelector:@selector(menuViewController:didChangeCenterViewController:forViewController:)]) {
+            [(id<FJBViewControllerAnimationProtocol>)centerViewController menuViewController:self didChangeCenterViewController:_centerViewController forViewController:centerViewController];
+        }
+    };
+    
+    
+    
+    if ([_centerViewController respondsToSelector:@selector(menuViewController:animateForViewController:withCompletionBlock:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)_centerViewController menuViewController:self
+                                                                 animateForViewController:centerViewController
+                                                                      withCompletionBlock:fromViewControllerBlock];
+    }
+    
+    if ([centerViewController respondsToSelector:@selector(menuViewController:animateForViewController:withCompletionBlock:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)centerViewController menuViewController:self
+                                                                animateForViewController:_centerViewController
+                                                                     withCompletionBlock:toViewControllerBlock];
+    }
+    
 }
 
 
