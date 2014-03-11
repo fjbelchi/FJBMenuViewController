@@ -203,6 +203,7 @@
 - (void)setCenterViewController:(UIViewController *)centerViewController
 {
    if (_centerViewController) {
+        centerViewController.view.frame = _centerViewController.view.frame;
         [_centerViewController willMoveToParentViewController:nil];
         [_centerViewController.view removeFromSuperview];
         [_centerViewController removeFromParentViewController];
