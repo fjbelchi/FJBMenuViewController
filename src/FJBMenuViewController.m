@@ -271,7 +271,7 @@
     [self.view addSubview:centerViewController.view];
     
     void (^fromViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
-
+        
     };
     
     void (^toViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
@@ -305,9 +305,25 @@
                                                                 animateForViewController:_centerViewController
                                                                      withCompletionBlock:toViewControllerBlock];
     }
-    
 }
 
+- (void)presentChildViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self addChildViewController:viewController];
+    [self.view addSubview:viewController.view];
+    [viewController didMoveToParentViewController:self];
+}
+
+- (void)dismissChildViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if (![self.childViewControllers containsObject:viewController]) {
+        return;
+    }
+    
+    [viewController willMoveToParentViewController:nil];
+    [viewController.view removeFromSuperview];
+    [viewController removeFromParentViewController];
+}
 
 #pragma mark - Private Methods
 
@@ -464,11 +480,19 @@
     }
 }
 
--(void) p_setupGestureRecognizers
+- (void) p_setupGestureRecognizers
 {
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureCallback:)];
     [pan setDelegate:self];
     [self.centerViewController.view addGestureRecognizer:pan];
+}
+
+- (void) p_removeGestureRecognizer
+{
+    NSArray *gestureRecognizers = self.centerViewController.view.gestureRecognizers;
+    for (UIGestureRecognizer *recognizer in gestureRecognizers) {
+        [self.centerViewController.view removeGestureRecognizer:recognizer];
+    }
 }
 
 #pragma mark - MenuViewController Animation End

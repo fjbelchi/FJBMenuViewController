@@ -65,5 +65,8 @@
 
 - (void)setCenterViewController:(UIViewController *)centerViewController animated:(BOOL)animated;
 
+- (void)presentChildViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (void)dismissChildViewController:(UIViewController *)viewController animated:(BOOL)animated;
+
 
 @end

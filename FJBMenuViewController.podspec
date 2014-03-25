@@ -4,7 +4,7 @@ Pod::Spec.new do |s|
   s.platform = :ios, '6.0'
   s.summary  = 'Menu View Controller Library.'
   s.description = 'Menu View Controller library with support for animations and new configurations'
-  s.homepage = 'https://bitbucket.org/workivate/wamnetworkkit'
+  s.homepage = 'https://github.com/fjbelchi/FJBMenuViewController'
   s.author   = { 'Francisco J. Belchi' => 'fjbelchi@gmail.com' }
   s.source   = { :git => 'https://github.com/fjbelchi/FJBMenuViewController.git', :tag => "#{s.version}" }
   s.source_files = 'src/*', 'src/Configuration/*', 'src/MenuAnimations/*'
