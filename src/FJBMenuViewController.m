@@ -37,6 +37,9 @@
 @property (nonatomic, assign) MenuSide sideOpening;
 @property (nonatomic, strong) NSMutableSet *sidesAvailable;
 
+// -- Gesture
+@property (nonatomic, strong) UIGestureRecognizer *defaultGestureRecognizer;
+
 // -- Configuration
 @property (nonatomic, strong) id<FJBMenuAnimationProtocol> menuAnimation;
 @property (nonatomic, assign, readonly) BOOL animationNeedHideStatusBar;
@@ -104,7 +107,7 @@
     [self.view addSubview:self.centerViewController.view];
     [self didMoveToParentViewController:self.centerViewController];
     
-    [self p_setupGestureRecognizers];
+    [self p_setupGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -141,6 +144,24 @@
     }
     NSAssert(_menuAnimation !=nil, @"No animaiton provided");
     return _menuAnimation;
+}
+
+- (UIGestureRecognizer *)defaultGestureRecognizer
+{
+    if (_defaultGestureRecognizer) {
+        return _defaultGestureRecognizer;
+    }
+    
+    if ([self.defaultConfiguration respondsToSelector:@selector(gestureRecognizerForCenterViewController:)]) {
+        _defaultGestureRecognizer = [self.defaultConfiguration gestureRecognizerForCenterViewController:self.centerViewController];
+    }
+    
+    if (!_defaultGestureRecognizer) {
+        _defaultGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureCallback:)];
+        [_defaultGestureRecognizer setDelegate:self];
+    }
+    
+    return _defaultGestureRecognizer;
 }
 
 - (BOOL) animationNeedHideStatusBar
@@ -214,7 +235,7 @@
     [self addChildViewController:_centerViewController];
     [self.view addSubview:_centerViewController.view];
     [self didMoveToParentViewController:_centerViewController];
-    [self p_setupGestureRecognizers];
+    [self p_setupGestureRecognizer];
 }
 
 
@@ -245,7 +266,7 @@
                          
                          _centerViewController = centerViewController;
                          [_centerViewController didMoveToParentViewController:self];
-                         [self p_setupGestureRecognizers];
+                         [self p_setupGestureRecognizer];
                          
                      }];
 
@@ -285,7 +306,7 @@
         
         _centerViewController = centerViewController;
         [_centerViewController didMoveToParentViewController:self];
-        [self p_setupGestureRecognizers];
+        [self p_setupGestureRecognizer];
         
         if ([centerViewController respondsToSelector:@selector(menuViewController:didChangeCenterViewController:forViewController:)]) {
             [(id<FJBViewControllerAnimationProtocol>)centerViewController menuViewController:self didChangeCenterViewController:_centerViewController forViewController:centerViewController];
@@ -480,11 +501,9 @@
     }
 }
 
-- (void) p_setupGestureRecognizers
+- (void) p_setupGestureRecognizer
 {
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureCallback:)];
-    [pan setDelegate:self];
-    [self.centerViewController.view addGestureRecognizer:pan];
+    [self.centerViewController.view addGestureRecognizer:self.defaultGestureRecognizer];
 }
 
 - (void) p_removeGestureRecognizer
@@ -622,6 +641,15 @@
     [self p_hideMenuViewControllerFromSide:MenuRightSide];
 }
 
+- (void)enableGestureRecognizer:(BOOL)enabled
+{
+    if (enabled) {
+        [self p_setupGestureRecognizer];
+    } else {
+        [self p_removeGestureRecognizer];
+    }
+}
+
 #pragma mark - GestureRecognizer Handlers
 
 -(void)panGestureCallback:(UIPanGestureRecognizer *)recognizer
@@ -691,14 +719,24 @@
 }
 
 #pragma mark - UIGestureRecognizerDelegate
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    return YES;
+    // -- Default behaviour
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        UIPanGestureRecognizer *panGestureRecognizer = (UIPanGestureRecognizer *)gestureRecognizer;
+        CGPoint translation = [panGestureRecognizer translationInView:self.view];
+        
+        // Check for horizontal gesture
+        if (fabsf(translation.x) > fabsf(translation.y))
+        {
+            return YES;
+        }
+        
+    }
+    
+    return NO;
 }
 
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    return YES;
-}
 
 @end

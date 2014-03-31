@@ -68,5 +68,6 @@
 - (void)presentChildViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (void)dismissChildViewController:(UIViewController *)viewController animated:(BOOL)animated;
 
+- (void)enableGestureRecognizer:(BOOL)enabled;
 
 @end
