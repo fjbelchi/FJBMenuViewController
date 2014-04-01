@@ -739,11 +739,15 @@
         // -- Check for the edge offset
         CGFloat offset = [self.defaultConfiguration gestureRecognizerEdgeOffsetToOpen];
         CGPoint touchPoint = [panGestureRecognizer locationInView:self.view];
-        if (!self.leftMenuOpened && !self.rigthMenuOpened &&
-            touchPoint.x <= offset) {
+        if ([self.sidesAvailable containsObject:@(MenuLeftSide)] &&
+            !self.leftMenuOpened && !self.rigthMenuOpened && touchPoint.x <= offset) {
+            
             result = YES;
-        } else if (!self.leftMenuOpened && !self.rigthMenuOpened &&
+            
+        } else if ([self.sidesAvailable containsObject:@(MenuRightSide)] &&
+                   !self.leftMenuOpened && !self.rigthMenuOpened &&
                  touchPoint.x >= self.view.frame.size.width - offset) {
+            
             result = YES;
         } else if(self.leftMenuOpened || self.rigthMenuOpened) {
             result = YES;
