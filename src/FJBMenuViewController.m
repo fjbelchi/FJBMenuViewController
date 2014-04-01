@@ -722,20 +722,40 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+    BOOL result = NO;
+    
     // -- Default behaviour
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         UIPanGestureRecognizer *panGestureRecognizer = (UIPanGestureRecognizer *)gestureRecognizer;
         CGPoint translation = [panGestureRecognizer translationInView:self.view];
         
-        // Check for horizontal gesture
-        if (fabsf(translation.x) > fabsf(translation.y))
-        {
-            return YES;
+        // -- Check for horizontal gesture
+        if (fabsf(translation.x) > fabsf(translation.y)){
+            result = YES;
+        } else {
+            result = NO;
         }
         
+        // -- Check for the edge offset
+        CGFloat offset = [self.defaultConfiguration gestureRecognizerEdgeOffsetToOpen];
+        NSLog(@"offset: %f",offset);
+        CGPoint touchPoint = [panGestureRecognizer locationInView:self.view];
+        NSLog(@"touchPoint.x: %f",touchPoint.x);
+        NSLog(@"self.leftMenuOpened: %d",self.leftMenuOpened);
+        if (!self.leftMenuOpened && !self.rigthMenuOpened &&
+            touchPoint.x <= offset) {
+            result = YES;
+        } else if (!self.leftMenuOpened && !self.rigthMenuOpened &&
+                 touchPoint.x >= self.view.frame.size.width - offset) {
+            result = YES;
+        } else if(self.leftMenuOpened || self.rigthMenuOpened) {
+            result = YES;
+        } else {
+            result = NO;
+        }
     }
     
-    return NO;
+    return result;
 }
 
 

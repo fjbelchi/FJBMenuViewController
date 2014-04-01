@@ -45,6 +45,7 @@
 
 #pragma mark - GestureRecognizer
 - (UIGestureRecognizer *) gestureRecognizerForCenterViewController: (UIViewController *) centerViewController;
+- (CGFloat)gestureRecognizerEdgeOffsetToOpen;
 
 #pragma mark - Shadow
 - (void) menuViewController:(FJBMenuViewController*)menuViewController applyShadow:(CALayer*)shadowLayer withBounds:(CGRect)rect;

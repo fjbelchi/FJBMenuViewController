@@ -41,10 +41,12 @@
 
 - (UIGestureRecognizer *) gestureRecognizerForCenterViewController: (UIViewController *) centerViewController
 {
-    UIGestureRecognizer *recognizer = [[UIGestureRecognizer alloc] init];
-    //[centerViewController.view addGestureRecognizer:recognizer];
-    
-    return recognizer;
+    return nil;
+}
+
+- (CGFloat)gestureRecognizerEdgeOffsetToOpen
+{
+    return 30;
 }
 
 - (BOOL) menuViewControllerShouldHideStatusBar:(FJBMenuViewController *)menuViewController
