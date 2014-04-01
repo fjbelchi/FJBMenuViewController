@@ -36,17 +36,13 @@
 #pragma mark - StatusBar
 - (BOOL) menuViewControllerShouldHideStatusBar:(FJBMenuViewController *)menuViewController;
 
-#pragma mark - MotionEffect
-- (void) menuViewController:(FJBMenuViewController *)menuViewController motionEffectCenterViewControler:(UIViewController *)centerViewController;
-
-- (void) menuViewController:(FJBMenuViewController *)menuViewController motionEffectLeftViewControler:(UIViewController *)leftViewController;
-
-- (void) menuViewController:(FJBMenuViewController *)menuViewController motionEffectRightViewControler:(UIViewController *)rightViewController;
-
 #pragma mark - GestureRecognizer
-- (UIGestureRecognizer *) gestureRecognizerForCenterViewController: (UIViewController *) centerViewController;
+- (UIGestureRecognizer *) gestureRecognizerForCenterViewController:(UIViewController *) centerViewController;
 - (CGFloat)gestureRecognizerEdgeOffsetToOpen;
 
-#pragma mark - Shadow
-- (void) menuViewController:(FJBMenuViewController*)menuViewController applyShadow:(CALayer*)shadowLayer withBounds:(CGRect)rect;
+#pragma mark - Behaviour
+- (BOOL) shouldDisableUserInputForCenterViewController:(UIViewController *)centerViewController;
+- (void) enableUserInputForCenterViewController:(UIViewController *)centerViewController;
+- (void) disableUserInputForCenterViewController:(UIViewController *)centerViewController;
+
 @end

@@ -483,7 +483,7 @@
 }
 
 #pragma mark - Status Bar
-- (void) p_showStatusBar
+- (void)p_showStatusBar
 {
     if (self.animationNeedHideStatusBar) {
         self.shouldHideStatusBar = NO;
@@ -492,7 +492,7 @@
     }
 }
 
-- (void) p_hideStatusBar
+- (void)p_hideStatusBar
 {
     if (self.animationNeedHideStatusBar) {
         self.shouldHideStatusBar = YES;
@@ -501,16 +501,37 @@
     }
 }
 
-- (void) p_setupGestureRecognizer
+- (void)p_setupGestureRecognizer
 {
     [self.centerViewController.view addGestureRecognizer:self.defaultGestureRecognizer];
 }
 
-- (void) p_removeGestureRecognizer
+- (void)p_removeGestureRecognizer
 {
     NSArray *gestureRecognizers = self.centerViewController.view.gestureRecognizers;
     for (UIGestureRecognizer *recognizer in gestureRecognizers) {
         [self.centerViewController.view removeGestureRecognizer:recognizer];
+    }
+}
+
+- (void)p_enableUserTouchInput:(BOOL)enabled
+{
+    if ([self.defaultConfiguration respondsToSelector:@selector(shouldDisableUserInputForCenterViewController:)]) {
+        
+        if (enabled) {
+            // -- Enable CenterViewController
+            if ([self.defaultConfiguration respondsToSelector:@selector(enableUserInputForCenterViewController:)]) {
+                [self.defaultConfiguration enableUserInputForCenterViewController:self.centerViewController];
+            }
+        }else {
+            // -- Disable CenterViewController
+            if ([self.defaultConfiguration shouldDisableUserInputForCenterViewController:self.centerViewController]) {
+                
+                if ([self.defaultConfiguration respondsToSelector:@selector(disableUserInputForCenterViewController:)]) {
+                    [self.defaultConfiguration disableUserInputForCenterViewController:self.centerViewController];
+                }
+            }
+        }
     }
 }
 
@@ -582,6 +603,8 @@
     if([self.delegate respondsToSelector:@selector(menuViewController:didShowViewController:fromMenuSide:)]){
         [self.delegate menuViewController:self didShowViewController:self.selectedViewController fromMenuSide:side];
     }
+    
+    [self p_enableUserTouchInput:NO];
 }
 
 - (void)p_menuClosedFromSide:(MenuSide)side
@@ -605,6 +628,8 @@
     if([self.delegate respondsToSelector:@selector(menuViewController:didHideViewController:fromMenuSide:)]){
         [self.delegate menuViewController:self didHideViewController:self.selectedViewController fromMenuSide:side];
     }
+    
+    [self p_enableUserTouchInput:YES];
 }
 
 #pragma mark - Public Methods
