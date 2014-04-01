@@ -738,10 +738,7 @@
         
         // -- Check for the edge offset
         CGFloat offset = [self.defaultConfiguration gestureRecognizerEdgeOffsetToOpen];
-        NSLog(@"offset: %f",offset);
         CGPoint touchPoint = [panGestureRecognizer locationInView:self.view];
-        NSLog(@"touchPoint.x: %f",touchPoint.x);
-        NSLog(@"self.leftMenuOpened: %d",self.leftMenuOpened);
         if (!self.leftMenuOpened && !self.rigthMenuOpened &&
             touchPoint.x <= offset) {
             result = YES;
