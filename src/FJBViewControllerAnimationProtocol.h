@@ -26,11 +26,38 @@
 
 @protocol FJBViewControllerAnimationProtocol <NSObject>
 @optional
-- (void) menuViewController:(FJBMenuViewController *)menuViewController willChangeCenterViewController:(UIViewController *)centerViewController
-          forViewController:(UIViewController *)viewController;
 
-- (void) menuViewController:(FJBMenuViewController *)menuViewController animateForViewController:(UIViewController *)viewController withCompletionBlock:(void(^)(BOOL finished))completionBlock;
+#pragma mark - Change Center ViewController
+- (void)menuViewController:(FJBMenuViewController *)menuViewController willChangeCenterViewController:(UIViewController *)centerViewController
+         forViewController:(UIViewController *)viewController;
 
-- (void) menuViewController:(FJBMenuViewController *)menuViewController didChangeCenterViewController:(UIViewController *)centerViewController
-          forViewController:(UIViewController *)viewController;
+- (void)menuViewController:(FJBMenuViewController *)menuViewController animateForViewController:(UIViewController *)viewController withCompletionBlock:(void(^)(BOOL finished))completionBlock;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController didChangeCenterViewController:(UIViewController *)centerViewController
+         forViewController:(UIViewController *)viewController;
+
+#pragma mark - Add Child ViewController
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController willAddChildViewController:(UIViewController *)childViewController
+          inViewController:(UIViewController *)viewController;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController animateToAddChildViewController:(UIViewController *)viewController withCompletionBlock:(void(^)(BOOL finished))completionBlock;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController animateToAddChildViewControllerFromViewController:(UIViewController *)viewController withCompletionBlock:(void(^)(BOOL finished))completionBlock;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController didAddChildViewController:(UIViewController *)childViewController
+          inViewController:(UIViewController *)viewController;
+
+#pragma mark - Remove Child ViewController
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController willRemoveChildViewController:(UIViewController *)childViewController
+          inViewController:(UIViewController *)viewController;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController animateToRemoveChildViewController:(UIViewController *)viewController withCompletionBlock:(void(^)(BOOL finished))completionBlock;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController animateToRemoveChildViewControllerFromViewController:(UIViewController *)viewController withCompletionBlock:(void(^)(BOOL finished))completionBlock;
+
+- (void)menuViewController:(FJBMenuViewController *)menuViewController didRemoveChildViewController:(UIViewController *)childViewController
+          inViewController:(UIViewController *)viewController;
+
 @end

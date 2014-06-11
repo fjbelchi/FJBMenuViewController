@@ -100,14 +100,16 @@
 
 - (void)viewDidLoad
 {
-    NSAssert(self.centerViewController != nil, @"centerViewController was not set");
     [super viewDidLoad];
     
-    [self addChildViewController:self.centerViewController];
-    [self.view addSubview:self.centerViewController.view];
-    [self didMoveToParentViewController:self.centerViewController];
+    if (self.centerViewController) {
+        [self addChildViewController:self.centerViewController];
+        [self.view addSubview:self.centerViewController.view];
+        [self didMoveToParentViewController:self.centerViewController];
+        
+        [self p_setupGestureRecognizer];
+    }
     
-    [self p_setupGestureRecognizer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -223,7 +225,7 @@
 
 - (void)setCenterViewController:(UIViewController *)centerViewController
 {
-   if (_centerViewController) {
+    if (_centerViewController) {
         centerViewController.view.frame = _centerViewController.view.frame;
         [_centerViewController willMoveToParentViewController:nil];
         [_centerViewController.view removeFromSuperview];
@@ -245,10 +247,10 @@
                      completion:(void(^)())completionBlock
 {
     [_centerViewController willMoveToParentViewController:nil];
-
+    
     [self addChildViewController:centerViewController];
     [self.view addSubview:centerViewController.view];
-
+    
     [UIView animateWithDuration:duration
                      animations:^{
                          if (animationBlock) {
@@ -269,7 +271,7 @@
                          [self p_setupGestureRecognizer];
                          
                      }];
-
+    
 }
 
 - (void)setCenterViewController:(UIViewController *)centerViewController animated:(BOOL)animated
@@ -330,9 +332,53 @@
 
 - (void)presentChildViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    
+    if (!animated) {
+        [self addChildViewController:viewController];
+        [self.view addSubview:viewController.view];
+        [viewController didMoveToParentViewController:self];
+        return;
+    }
+    
+    if ([self.centerViewController respondsToSelector:@selector(menuViewController:willAddChildViewController:inViewController:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)self.centerViewController menuViewController:self willAddChildViewController:viewController inViewController:self.centerViewController];
+    }
+    
+    if ([viewController respondsToSelector:@selector(menuViewController:willAddChildViewController:inViewController:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)viewController menuViewController:self willAddChildViewController:viewController inViewController:self.centerViewController];
+    }
+    
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
     [viewController didMoveToParentViewController:self];
+    
+    
+    void (^fromViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
+        
+    };
+    
+    void (^toViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
+        
+        if ([self.centerViewController respondsToSelector:@selector(menuViewController:didAddChildViewController:inViewController:)]) {
+            [(id<FJBViewControllerAnimationProtocol>)self.centerViewController menuViewController:self didAddChildViewController:viewController inViewController:self.centerViewController];
+        }
+        
+        if ([viewController respondsToSelector:@selector(menuViewController:didAddChildViewController:inViewController:)]) {
+            [(id<FJBViewControllerAnimationProtocol>)viewController menuViewController:self didAddChildViewController:viewController inViewController:self.centerViewController];
+        }
+    };
+    
+    if ([self.centerViewController respondsToSelector:@selector(menuViewController:animateToAddChildViewController:withCompletionBlock:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)self.centerViewController menuViewController:self
+                                                              animateToAddChildViewController:viewController
+                                                                          withCompletionBlock:fromViewControllerBlock];
+    }
+    
+    if ([viewController respondsToSelector:@selector(menuViewController:animateToAddChildViewControllerFromViewController:withCompletionBlock:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)viewController menuViewController:self
+                                 animateToAddChildViewControllerFromViewController:self.centerViewController
+                                                               withCompletionBlock:toViewControllerBlock];
+    }
 }
 
 - (void)dismissChildViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -341,9 +387,54 @@
         return;
     }
     
+    if (!animated) {
+        [viewController willMoveToParentViewController:nil];
+        [viewController.view removeFromSuperview];
+        [viewController removeFromParentViewController];
+        return;
+    }
+    
+    
+    if ([self.centerViewController respondsToSelector:@selector(menuViewController:willRemoveChildViewController:inViewController:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)self.centerViewController menuViewController:self willRemoveChildViewController:viewController inViewController:self.centerViewController];
+    }
+    
+    if ([viewController respondsToSelector:@selector(menuViewController:willRemoveChildViewController:inViewController:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)viewController menuViewController:self willRemoveChildViewController:viewController inViewController:self.centerViewController];
+    }
+    
     [viewController willMoveToParentViewController:nil];
-    [viewController.view removeFromSuperview];
-    [viewController removeFromParentViewController];
+    
+    void (^fromViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
+        
+    };
+    
+    void (^toViewControllerBlock)(BOOL finished) = ^void(BOOL finished){
+        
+        [viewController.view removeFromSuperview];
+        [viewController removeFromParentViewController];
+        
+        if ([self.centerViewController respondsToSelector:@selector(menuViewController:didRemoveChildViewController:inViewController:)]) {
+            [(id<FJBViewControllerAnimationProtocol>)self.centerViewController menuViewController:self didRemoveChildViewController:viewController inViewController:self.centerViewController];
+        }
+        
+        if ([viewController respondsToSelector:@selector(menuViewController:didRemoveChildViewController:inViewController:)]) {
+            [(id<FJBViewControllerAnimationProtocol>)viewController menuViewController:self didRemoveChildViewController:viewController inViewController:self.centerViewController];
+        }
+    };
+    
+    if ([viewController respondsToSelector:@selector(menuViewController:animateToRemoveChildViewControllerFromViewController:withCompletionBlock:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)viewController menuViewController:self
+                              animateToRemoveChildViewControllerFromViewController:self.centerViewController
+                                                               withCompletionBlock:toViewControllerBlock];
+    }
+    
+    if ([self.centerViewController respondsToSelector:@selector(menuViewController:animateToRemoveChildViewController:withCompletionBlock:)]) {
+        [(id<FJBViewControllerAnimationProtocol>)self.centerViewController menuViewController:self
+                                                           animateToRemoveChildViewController:viewController
+                                                                          withCompletionBlock:fromViewControllerBlock];
+    }
+    
 }
 
 #pragma mark - Private Methods
@@ -359,7 +450,7 @@
                                  menuView:self.selectedViewController.view
                                  fromSide:side
                            extraAnimation:^{
-             
+                               
                            } completion:^(BOOL finished) {
                                [[UIApplication sharedApplication] endIgnoringInteractionEvents];
                                
@@ -413,12 +504,12 @@
                                    if (strongSelf) {
                                        [strongSelf p_menuClosedFromSide:side];
                                    }
-
+                                   
                                }
                                
                            }
      ];
-
+    
 }
 
 - (void)p_hideMenuViewControllerFromSide:(MenuSide)side
@@ -438,7 +529,7 @@
                                           if (strongSelf) {
                                               [strongSelf p_menuClosedFromSide:side];
                                           }
-
+                                          
                                       }
      ];
 }
@@ -584,7 +675,7 @@
 - (void)p_menuOpenedFromSide:(MenuSide)side
 {
     [self p_hideStatusBar];
-
+    
     [self didMoveToParentViewController:self.selectedViewController];
     switch (side) {
         case MenuLeftSide:
@@ -726,7 +817,7 @@
                 break;
         }
     }
-  
+    
     if (open && ([self.sidesAvailable containsObject:@(side)] || recognizer.state == UIGestureRecognizerStateEnded)) {
         [self p_showMenuViewControllerFromSide:side
                                transitionStyle:self.menuAnimation
@@ -739,8 +830,8 @@
                               recognitionState:recognizer.state
                               translationPoint:point];
     }
-  
-     
+    
+    
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -771,7 +862,7 @@
             
         } else if ([self.sidesAvailable containsObject:@(MenuRightSide)] &&
                    !self.leftMenuOpened && !self.rigthMenuOpened &&
-                 touchPoint.x >= self.view.frame.size.width - offset) {
+                   touchPoint.x >= self.view.frame.size.width - offset) {
             
             result = YES;
         } else if(self.leftMenuOpened || self.rigthMenuOpened) {
