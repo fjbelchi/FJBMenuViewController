@@ -747,6 +747,7 @@
         [_leftViewController willMoveToParentViewController:nil];
         [_leftViewController.view removeFromSuperview];
         [_leftViewController removeFromParentViewController];
+        [self.sidesAvailable removeObject:@(MenuLeftSide)];
     }
 }
 
@@ -772,6 +773,7 @@
         [_rightViewController willMoveToParentViewController:nil];
         [_rightViewController.view removeFromSuperview];
         [_rightViewController removeFromParentViewController];
+        [self.sidesAvailable removeObject:@(MenuRightSide)];
     }
 }
 
