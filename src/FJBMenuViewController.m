@@ -741,6 +741,15 @@
     [self p_hideMenuViewControllerFromSide:MenuLeftSide];
 }
 
+- (void)removeLeftMenuViewController
+{
+    if (_leftViewController) {
+        [_leftViewController willMoveToParentViewController:nil];
+        [_leftViewController.view removeFromSuperview];
+        [_leftViewController removeFromParentViewController];
+    }
+}
+
 - (void)showRightMenuViewController
 {
     [self showRightMenuViewControllerWithMenuAnimation:self.menuAnimation];
@@ -755,6 +764,15 @@
 - (void)hideRightMenuViewController
 {
     [self p_hideMenuViewControllerFromSide:MenuRightSide];
+}
+
+- (void)removeRightMenuViewController
+{
+    if (_rightViewController) {
+        [_rightViewController willMoveToParentViewController:nil];
+        [_rightViewController.view removeFromSuperview];
+        [_rightViewController removeFromParentViewController];
+    }
 }
 
 - (void)enableGestureRecognizer:(BOOL)enabled

@@ -50,13 +50,17 @@
                           leftViewController:(UIViewController *)leftViewController
                          rightViewController:(UIViewController *)rightViewController;
 
+#pragma mark - Left Menu ViewController
 - (void)showLeftMenuViewController;
 - (void)showLeftMenuViewControllerWithMenuAnimation:(id<FJBMenuAnimationProtocol>)animation;
 - (void)hideLeftMenuViewController;
+- (void)removeLeftMenuViewController;
 
+#pragma mark - Right Menu ViewController
 - (void)showRightMenuViewController;
 - (void)showRightMenuViewControllerWithMenuAnimation:(id<FJBMenuAnimationProtocol>)animation;
 - (void)hideRightMenuViewController;
+- (void)removeRigthMenuViewController;
 
 - (void)setCenterViewController:(UIViewController *)centerViewController
                    withDuration:(CGFloat)duration
