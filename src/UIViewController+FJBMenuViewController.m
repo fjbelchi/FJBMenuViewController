@@ -27,14 +27,13 @@
 
 - (FJBMenuViewController *)menuController
 {
-    if([self.parentViewController isKindOfClass:[FJBMenuViewController class]]) {
-        return (FJBMenuViewController *)self.parentViewController;
-        
-    } else if([self.parentViewController isKindOfClass:[UINavigationController class]] &&
-            [self.parentViewController.parentViewController isKindOfClass:[FJBMenuViewController class]]) {
-        return (FJBMenuViewController *)self.parentViewController.parentViewController;
+    UIViewController *parentViewController = self.parentViewController;
+    while (parentViewController != nil) {
+        if ([parentViewController isKindOfClass:[FJBMenuViewController class]]) {
+            return (FJBMenuViewController *)parentViewController;
+        }
+        parentViewController = parentViewController.parentViewController;
     }
-    
     return nil;
 }
 
