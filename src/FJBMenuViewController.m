@@ -236,7 +236,7 @@
     
     [self addChildViewController:_centerViewController];
     [self.view addSubview:_centerViewController.view];
-    [self didMoveToParentViewController:_centerViewController];
+    [_centerViewController didMoveToParentViewController:self];
     [self p_setupGestureRecognizer];
 }
 
