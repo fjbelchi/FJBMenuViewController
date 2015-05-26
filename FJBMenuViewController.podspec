@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'FJBMenuViewController'
-  s.version  = '0.0.10'
+  s.version  = '0.0.11'
   s.platform = :ios, '6.0'
   s.summary  = 'Menu View Controller Library.'
   s.description = 'Menu View Controller library with support for animations and new configurations'
